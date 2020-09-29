@@ -1,0 +1,10 @@
+GIT_BASE=https://github.com/dentproject/$PROJECT
+GIT_CLONE_URL=git@github.com:
+GIT_URL=https://github.com
+JENKINS_HOSTNAME=aws-us-west-2-dent-jenkins-1
+NEXUS_URL=https://nexus.dent.dev
+NEXUSPROXY=https://nexus.dent.dev
+RELEASE_EMAIL=collab-it+dent-release@linuxfoundation.org
+RELEASE_USERNAME=dent-release
+S3_BUCKET=
+SILO=production
