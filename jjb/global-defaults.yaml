@@ -1,0 +1,34 @@
+---
+# GLOBAL jenkins defaults
+
+- defaults:
+    name: global
+
+    build-days-to-keep: 30
+    build-num-to-keep: 40
+    build-artifact-days-to-keep: -1
+    build-artifact-num-to-keep: 5
+
+    # lf-infra defaults
+    lftools-version: <1.0.0
+
+    # packer_version
+    packer-version: 1.6.4
+
+    # Java
+    jdk: ''
+
+    # Timeout in minutes
+    build-timeout: 30
+
+    archive-artifacts: ''
+
+    # Set default maven version used for everything
+    maven-version: 'mvn33'
+
+    # git submodule attributes
+    submodule-recursive: true
+    submodule-disable: false
+
+    # Jenkins
+    jenkins-ssh-credential: 'dent-jenkins-ssh'
