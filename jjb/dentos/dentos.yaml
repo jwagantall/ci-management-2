@@ -1,0 +1,17 @@
+---
+- project:
+    name: dentos-project-view
+    project-name: dentos
+    views:
+      - project-view
+
+- project:
+    name: dentos-verify
+    build-node: centos7-docker-aws-1c-2g
+    project-name: dentos
+    project: dentos
+    stream:
+      - 'master':
+          branch: 'master'
+    jobs:
+      - github-dentos-verify
