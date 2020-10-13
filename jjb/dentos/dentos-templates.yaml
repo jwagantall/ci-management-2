@@ -1,0 +1,76 @@
+---
+#################
+# DENTOS COMMON #
+#################
+
+- lf_dentos_common: &lf_dentos_common
+    name: lf-dentos-common
+
+    #####################
+    # Job Configuration #
+    #####################
+
+    project-type: freestyle
+    node: "{build-node}"
+    disabled: "{disable-job}"
+
+    properties:
+      - lf-infra-properties:
+          build-days-to-keep: "{build-days-to-keep}"
+
+    parameters:
+      - lf-infra-parameters:
+          project: "{project}"
+          branch: "{branch}"
+          stream: "{stream}"
+      - string:
+          name: BUILD_ARGS
+          default: "{build-args}"
+          description: |
+            Options to pass to build.sh.
+            Example: -j8 all
+
+    wrappers:
+      - lf-infra-wrappers:
+          build-timeout: "{build-timeout}"
+          jenkins-ssh-credential: "{jenkins-ssh-credential}"
+
+    publishers:
+      - lf-infra-publish
+
+- job-template:
+    name: "{project-name}-verify-{stream}"
+    id: github-dentos-verify
+    <<: *lf_dentos_common
+
+    build-args: ''
+
+    properties:
+      - lf-infra-properties:
+          build-days-to-keep: "{build-days-to-keep}"
+      - github:
+          url: "{github-url}/{github-org}/{project}"
+
+    scm:
+      - lf-infra-github-scm:
+          url: "{git-clone-url}{github-org}/{project}"
+          refspec: "+refs/pull/*:refs/remotes/origin/pr/*"
+          branch: "$sha1"
+          submodule-recursive: false
+          submodule-timeout: "{submodule-timeout}"
+          submodule-disable: true
+          choosing-strategy: default
+          jenkins-ssh-credential: "{jenkins-ssh-credential}"
+
+    triggers:
+      - github-pull-request:
+          trigger-phrase: "^(reverify|recheck)$"
+          only-trigger-phrase: true
+          status-context: "DentOS verify"
+          permit-all: true
+          github-hooks: true
+          white-list-target-branches:
+            - "{branch}"
+
+    builders:
+      - shell: !include-raw-escape: ../../shell/dentos-build.sh
