@@ -14,6 +14,7 @@ echo "---> dentos-build.sh"
 # be careful and verbose
 set -eux -o pipefail
 
+sudo apt-get install -y binfmt-support
 bash tools/autobuild/build.sh -9 -b $STREAM ${BUILD_ARGS:-}
 
 echo "---> dentos-build.sh ends"
