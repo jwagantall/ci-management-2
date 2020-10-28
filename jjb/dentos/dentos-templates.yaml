@@ -17,6 +17,8 @@
     properties:
       - lf-infra-properties:
           build-days-to-keep: "{build-days-to-keep}"
+      - github:
+          url: "{github-url}/{github-org}/{project}"
 
     parameters:
       - lf-infra-parameters:
@@ -45,12 +47,6 @@
 
     build-args: ''
 
-    properties:
-      - lf-infra-properties:
-          build-days-to-keep: "{build-days-to-keep}"
-      - github:
-          url: "{github-url}/{github-org}/{project}"
-
     scm:
       - lf-infra-github-scm:
           url: "{git-clone-url}{github-org}/{project}"
@@ -67,6 +63,46 @@
           trigger-phrase: "^(reverify|recheck)$"
           only-trigger-phrase: true
           status-context: "DentOS verify"
+          permit-all: true
+          github-hooks: true
+          white-list-target-branches:
+            - "{branch}"
+
+    builders:
+      - shell: !include-raw-escape: ../../shell/dentos-build.sh
+
+- job-template:
+    name: "{project-name}-merge-{stream}"
+    id: github-dentos-merge
+    <<: *lf_dentos_common
+
+    build-args: ''
+
+    scm:
+      - lf-infra-github-scm:
+          url: "{git-clone-url}{github-org}/{project}"
+          refspec: ""
+          branch: "refs/heads/{branch}"
+          submodule-recursive: false
+          submodule-timeout: "{submodule-timeout}"
+          submodule-disable: true
+          choosing-strategy: default
+          jenkins-ssh-credential: "{jenkins-ssh-credential}"
+
+    wrappers:
+      - lf-infra-wrappers:
+          build-timeout: "{build-timeout}"
+          jenkins-ssh-credential: "{jenkins-ssh-credential}"
+      - credentials-binding:
+          - username-password:
+             credential-id: dentos
+             variable: DENTOSUSER
+
+    triggers:
+      - github-pull-request:
+          trigger-phrase: "^(remerge)$"
+          only-trigger-phrase: true
+          status-context: "DentOS merge"
           permit-all: true
           github-hooks: true
           white-list-target-branches:

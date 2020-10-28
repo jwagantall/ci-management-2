@@ -14,4 +14,7 @@
       - 'master':
           branch: 'master'
     jobs:
-      - github-dentos-verify
+      - github-dentos-verify:
+          build-timeout: 270
+      - github-dentos-merge:
+          build-timeout: 270
