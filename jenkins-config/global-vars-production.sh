@@ -6,5 +6,6 @@ NEXUS_URL=https://nexus.dent.dev
 NEXUSPROXY=https://nexus.dent.dev
 RELEASE_EMAIL=collab-it+dent-release@linuxfoundation.org
 RELEASE_USERNAME=dent-release
-S3_BUCKET=
+S3_BUCKET=logs-s3-cloudfront-index
+CDN_URL=s3-logs.dent.dev
 SILO=production
