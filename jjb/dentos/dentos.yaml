@@ -13,6 +13,9 @@
     stream:
       - 'master':
           branch: 'master'
+      - 'main':
+          branch: 'main'
+
     jobs:
       - github-dentos-verify:
           build-timeout: 270
