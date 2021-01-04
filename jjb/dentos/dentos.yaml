@@ -21,3 +21,16 @@
           build-timeout: 270
       - github-dentos-merge:
           build-timeout: 270
+
+- project:
+    name: dentos-whitesource
+    project-name: dentos
+    build-node: centos7-docker-aws-1c-2g
+    jobs:
+      - github-whitesource-scan
+    wss-product-name: dentos
+    submodule-disable: true
+    mvn-clean-install: false
+    mvn-settings: dentos-settings
+    project: dentos
+    branch: master
