@@ -14,6 +14,9 @@
     node: "{build-node}"
     disabled: "{disable-job}"
 
+    github_excluded_regions:
+      - '(releases\/.*\.yaml|\.releases\/.*\.yaml)'
+
     properties:
       - lf-infra-properties:
           build-days-to-keep: "{build-days-to-keep}"
@@ -67,6 +70,7 @@
           github-hooks: true
           white-list-target-branches:
             - "{branch}"
+          excluded-regions: "{obj:github_excluded_regions}"
 
     builders:
       - shell: !include-raw-escape: ../../shell/dentos-build.sh
