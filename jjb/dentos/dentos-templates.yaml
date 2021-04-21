@@ -49,6 +49,7 @@
     <<: *lf_dentos_common
 
     build-args: ''
+    concurrent: true
 
     scm:
       - lf-infra-github-scm:
