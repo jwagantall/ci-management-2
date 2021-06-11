@@ -13,17 +13,17 @@
     mvn-settings: dentos-settings
     jenkins-ssh-release-credential: dent
     stream:
-      - 'master':
-          branch: 'master'
-      - 'main':
-          branch: 'main'
+      - "master":
+          branch: "master"
+      - "main":
+          branch: "main"
 
     jobs:
       - github-dentos-verify:
           build-timeout: 270
       - github-dentos-merge:
           build-timeout: 270
-      - '{project-name}-github-release-jobs':
+      - "{project-name}-github-release-jobs":
           branch: master
 
 - project:
