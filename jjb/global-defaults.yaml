@@ -13,9 +13,8 @@
     # GitHub configuration
     git-url: https://github.com
     github-url: https://github.com
-    git-clone-url: 'git@github.com:'
+    git-clone-url: "git@github.com:"
     github-org: dentproject
-    submodule-recursive: true
 
     # default pr_whitelist to some LF RelEng staff
     github_pr_whitelist:
@@ -33,15 +32,15 @@
     packer-version: 1.6.4
 
     # Java
-    jdk: ''
+    jdk: ""
 
     # Timeout in minutes
     build-timeout: 30
 
-    archive-artifacts: ''
+    archive-artifacts: ""
 
     # Set default maven version used for everything
-    maven-version: 'mvn33'
+    maven-version: "mvn33"
 
     # git submodule attributes
     submodule-recursive: true
@@ -49,4 +48,4 @@
     submodule-timeout: 10
 
     # Jenkins
-    jenkins-ssh-credential: 'dent-jenkins-ssh'
+    jenkins-ssh-credential: "dent-jenkins-ssh"

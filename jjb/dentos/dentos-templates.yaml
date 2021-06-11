@@ -14,6 +14,9 @@
     node: "{build-node}"
     disabled: "{disable-job}"
 
+    github_excluded_regions:
+      - '(releases\/.*\.yaml|\.releases\/.*\.yaml)'
+
     properties:
       - lf-infra-properties:
           build-days-to-keep: "{build-days-to-keep}"
@@ -45,7 +48,8 @@
     id: github-dentos-verify
     <<: *lf_dentos_common
 
-    build-args: ''
+    build-args: ""
+    concurrent: true
 
     scm:
       - lf-infra-github-scm:
@@ -61,12 +65,13 @@
     triggers:
       - github-pull-request:
           trigger-phrase: "^(reverify|recheck)$"
-          only-trigger-phrase: true
+          only-trigger-phrase: false
           status-context: "DentOS verify"
           permit-all: true
           github-hooks: true
           white-list-target-branches:
             - "{branch}"
+          excluded-regions: "{obj:github_excluded_regions}"
 
     builders:
       - shell: !include-raw-escape: ../../shell/dentos-build.sh
@@ -76,7 +81,7 @@
     id: github-dentos-merge
     <<: *lf_dentos_common
 
-    build-args: ''
+    build-args: ""
 
     scm:
       - lf-infra-github-scm:
@@ -95,13 +100,13 @@
           jenkins-ssh-credential: "{jenkins-ssh-credential}"
       - credentials-binding:
           - username-password:
-             credential-id: dentos
-             variable: DENTOSUSER
+              credential-id: dentos
+              variable: DENTOSUSER
 
     triggers:
       - github-pull-request:
           trigger-phrase: "^(remerge)$"
-          only-trigger-phrase: true
+          only-trigger-phrase: false
           status-context: "DentOS merge"
           permit-all: true
           github-hooks: true
