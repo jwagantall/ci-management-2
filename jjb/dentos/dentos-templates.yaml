@@ -48,7 +48,7 @@
     id: github-dentos-verify
     <<: *lf_dentos_common
 
-    build-args: ''
+    build-args: ""
     concurrent: true
 
     scm:
@@ -81,7 +81,7 @@
     id: github-dentos-merge
     <<: *lf_dentos_common
 
-    build-args: ''
+    build-args: ""
 
     scm:
       - lf-infra-github-scm:
@@ -100,8 +100,8 @@
           jenkins-ssh-credential: "{jenkins-ssh-credential}"
       - credentials-binding:
           - username-password:
-             credential-id: dentos
-             variable: DENTOSUSER
+              credential-id: dentos
+              variable: DENTOSUSER
 
     triggers:
       - github-pull-request:
